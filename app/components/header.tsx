@@ -1,108 +1,184 @@
 "use client";
 
-import DarkVeil from "./DarkVeil";
-// import Navbar from "./navbar";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { memo, useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const springConfig = { type: "spring", stiffness: 220, damping: 18 } as const;
+
+const statsData = [
+    { value: 150, suffix: "+", label: "Projects" },
+    { value: 50, suffix: "M+", label: "Views Generated" },
+    { value: 100, suffix: "%", label: "Satisfaction" },
+];
+
+// ─── Count-up hook ────────────────────────────────────────────────────────────
+
+function useCountUp(target: number, inView: boolean, duration = 3000) {
+    const [count, setCount] = useState(0);
+    const rafRef = useRef<number>(0);
+
+    useEffect(() => {
+        if (!inView) return;
+
+        const start = performance.now();
+
+        const tick = (now: number) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+
+            setCount(Math.floor(eased * target));
+
+            if (progress < 1) {
+                rafRef.current = requestAnimationFrame(tick);
+            } else {
+                setCount(target);
+            }
+        };
+
+        rafRef.current = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafRef.current);
+    }, [inView, target, duration]);
+
+    return count;
+}
+
+// ─── Stat item ────────────────────────────────────────────────────────────────
+
+const StatItem = memo(function StatItem({
+    value,
+    suffix,
+    label,
+    inView,
+}: (typeof statsData)[number] & { inView: boolean }) {
+    const count = useCountUp(value, inView);
+
+    return (
+        <div>
+            <h3 className="text-3xl font-bold text-white tabular-nums">
+                {count}{suffix}
+            </h3>
+            <p className="mt-1 text-sm uppercase tracking-wider text-white/50">
+                {label}
+            </p>
+        </div>
+    );
+});
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+
+const Stats = memo(function Stats() {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useInView(ref, { once: true, amount: 0.5 });
+
+    return (
+        <motion.div
+            ref={ref}
+            className="mt-14 flex justify-center gap-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 1 }}
+        >
+            {statsData.map((stat) => (
+                <StatItem key={stat.label} {...stat} inView={inView} />
+            ))}
+        </motion.div>
+    );
+});
+
+// ─── Header ───────────────────────────────────────────────────────────────────
 
 export default function Header() {
     const { scrollY } = useScroll();
+    const opacity = useTransform(scrollY, [150, 1000], [1, 0]);
 
-    const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-    const y = useTransform(scrollY, [0, 400], [0, -80]);
     return (
         <motion.section
-            style={{ opacity }}
+            style={{ opacity, willChange: "transform, opacity" }}
             className="relative w-screen h-screen"
         >
-            <header className="relative w-full h-full overflow-hidden">
-                {/* Background */}
-                <div className="absolute inset-0 -z-10">
-                    <DarkVeil
-                        hueShift={0}
-                        noiseIntensity={0}
-                        scanlineIntensity={0}
-                        speed={0.5}
-                        scanlineFrequency={0}
-                        warpAmount={0}
-                        resolutionScale={1}
-                    />
-                </div>
+            <div className="relative w-full h-full overflow-hidden">
+                <div className="relative z-10 flex mt-50 items-center justify-center px-6">
+                    <div className="max-w-2xl text-center">
 
-                {/* Content */}
-                <div className="relative z-10">
-                    {/* <Navbar /> */}
-
-                    <section className="relative flex mt-50 items-center justify-center px-6">
-                        <div className="max-w-2xl text-center">
-                            {/* Badge */}
-                            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#CC1302]/30 bg-[#CC1302]/10 px-4 py-1.5">
-                                <span className="h-2 w-2 rounded-full bg-[#CC1302]" />
-                                <span className="text-sm font-medium text-[#CC1302]">
-                                    Professional Video Editing
-                                </span>
-                            </div>
-
-                            {/* Heading */}
-                            <h1 className="text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl">
-                                We Create
-                                <br />
-                                <span className="text-[#CC1302]">
-                                    High-Converting Videos
-                                </span>
-                            </h1>
-
-                            {/* Description */}
-                            <p className="mx-auto mt-8 max-w-xl text-lg leading-8 text-white/65">
-                                Premium video editing for creators, brands, and businesses
-                                that want to stand out and drive more engagement across every
-                                platform.
-                            </p>
-
-                            {/* Buttons */}
-                            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                                <motion.button
-                                    className="rounded-xl border border-white/10 bg-[#CC1302] px-7 py-3 font-semibold text-white backdrop-blur-md"
-                                    whileHover={{ y: -3 }}
-                                    transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                                >
-                                    Book a Call
-                                </motion.button>
-
-                                <motion.button className="rounded-xl border border-white/10 bg-white/5 px-7 py-3 font-semibold text-white backdrop-blur-md hover:bg-white/10"
-                                    whileHover={{ y: -3 }}
-                                    transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                                >
-                                    View Portfolio
-                                </motion.button>
-                            </div>
-
-                            {/* Stats */}
-                            <div className="mt-14 flex justify-center gap-12">
-                                <div>
-                                    <h3 className="text-3xl font-bold text-white">150+</h3>
-                                    <p className="mt-1 text-sm uppercase tracking-wider text-white/50">
-                                        Projects
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-3xl font-bold text-white">50M+</h3>
-                                    <p className="mt-1 text-sm uppercase tracking-wider text-white/50">
-                                        Views Generated
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-3xl font-bold text-white">100%</h3>
-                                    <p className="mt-1 text-sm uppercase tracking-wider text-white/50">
-                                        Satisfaction
-                                    </p>
-                                </div>
-                            </div>
+                        {/* Badge */}
+                        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#CC1302]/30 bg-[#CC1302]/10 px-4 py-1.5 overflow-hidden">
+                            <motion.span
+                                className="h-2 w-2 rounded-full bg-[#CC1302] shrink-0"
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                            />
+                            <motion.span
+                                className="text-sm font-medium text-[#CC1302] whitespace-nowrap overflow-hidden"
+                                initial={{ width: 0, opacity: 0 }}
+                                animate={{ width: "auto", opacity: 1 }}
+                                transition={{ duration: 0.5, ease: "easeOut", delay: 0.35 }}
+                            >
+                                Professional Video Editing
+                            </motion.span>
                         </div>
-                    </section>
+
+                        {/* Heading */}
+                        <motion.h1
+                            className="text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.2 }}
+                        >
+                            Setting the
+                            <br />
+                            <div className="flex gap-3 justify-center">
+                                {["New", "Visual", "Standard"].map((word, i) => (
+                                    <motion.span
+                                        key={word}
+                                        className="text-[#CC1302]"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.7, delay: 0.1 + i * 0.15 }}
+                                    >
+                                        {word}
+                                    </motion.span>
+                                ))}
+                            </div>
+                        </motion.h1>
+
+                        {/* Description */}
+                        <motion.p
+                            className="mx-auto mt-8 max-w-xl text-lg leading-8 text-white/65"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.7, delay: 0.6 }}
+                        >
+                            Premium video editing for creators, brands, and businesses that
+                            want to stand out and drive more engagement across every platform.
+                        </motion.p>
+
+                        {/* Buttons */}
+                        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                            {[
+                                { label: "Book a Call", className: "bg-[#CC1302]" },
+                                { label: "View Portfolio", className: "bg-white/5 hover:bg-white/10" },
+                            ].map(({ label, className }) => (
+                                <motion.button
+                                    key={label}
+                                    className={`rounded-xl border border-white/10 ${className} px-7 py-3 font-semibold text-white backdrop-blur-md`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.7 }}
+                                    whileHover={{ y: -3, transition: springConfig }}
+                                >
+                                    {label}
+                                </motion.button>
+                            ))}
+                        </div>
+
+                        <Stats />
+                    </div>
                 </div>
-            </header>
+            </div>
         </motion.section>
     );
 }
