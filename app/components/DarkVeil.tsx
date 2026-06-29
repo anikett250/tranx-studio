@@ -134,15 +134,14 @@ export default function DarkVeil({
             const w = parent.clientWidth;
             const h = parent.clientHeight;
 
-            // Canvas stays full size
-            canvas.style.width = `${w}px`;
-            canvas.style.height = `${h}px`;
-
-            // Internal render resolution is reduced
             renderer.setSize(
                 Math.floor(w * resolutionScale),
                 Math.floor(h * resolutionScale)
             );
+
+            canvas.style.width = "100%";
+            canvas.style.height = "100%";
+            canvas.style.display = "block";
 
             program.uniforms.uResolution.value.set(w, h);
         };
