@@ -2,6 +2,7 @@
 
 import { memo, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import DarkVeil from "./DarkVeil";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -100,6 +101,17 @@ export default function Header() {
             className="relative w-screen h-screen"
         >
             <div className="relative w-full h-full overflow-hidden">
+                <div className="absolute inset-0 -z-10">
+                    <DarkVeil
+                        hueShift={0}
+                        noiseIntensity={0}
+                        scanlineIntensity={0}
+                        speed={0.5}
+                        scanlineFrequency={0}
+                        warpAmount={0}
+                        resolutionScale={1}
+                    />
+                </div>
                 <div className="relative z-10 flex mt-50 items-center justify-center px-6">
                     <div className="max-w-2xl text-center">
 
