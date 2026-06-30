@@ -65,8 +65,8 @@ export default function Header2() {
     return (
         // Single element — removed redundant nested <section>
         <motion.section
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={TRANSITION}
             viewport={VIEWPORT}
             // willChange hints the browser before the animation fires
