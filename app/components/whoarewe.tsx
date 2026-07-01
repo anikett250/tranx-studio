@@ -36,7 +36,7 @@ const features = [
 
 export default function WhatIsTranxStudio() {
     return (
-        <section className="bg-[#030303] px-6 py-28">
+        <section id="tranxstudio" className="bg-[#030303] px-6 py-28">
             <div className="mx-auto max-w-6xl">
 
                 {/* Heading */}

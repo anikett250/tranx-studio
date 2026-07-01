@@ -1,127 +1,78 @@
 "use client"
 
-import { memo } from "react";
 import { motion } from "framer-motion";
-import BorderGlow from './borderglow';
 
-// Hoisted outside component — never recreated
 const steps = [
     {
-        number: "Step 01",
+        number: "01",
         title: "Share your vision",
         description:
             "Tell us about your project, goals, style preferences, and references. Upload your footage and brand assets to get started.",
     },
     {
-        number: "Step 02",
+        number: "02",
         title: "We edit & create",
         description:
             "Our expert editors craft your video with clean cuts, motion graphics, color grading, and sound design.",
     },
     {
-        number: "Step 03",
+        number: "03",
         title: "Review & deliver",
         description:
             "Receive your first draft, request revisions, and get the final high-quality video ready to publish.",
     },
 ];
 
-const TRANSITION = { duration: 0.8, ease: "easeOut" } as const;
-const VIEWPORT = { once: true, amount: 0.3 } as const;
-
-// Hoisted so a new array/object isn't allocated on every StepCard render
-// (also keeps BorderGlow's own memoization, if any, actually effective)
-const GLOW_COLORS = ["#CC1302", "#ff4422", "#CC1302"];
-const HEADING_WORDS = ["Cinematic", "Experience"];
-
-// Memoized card — only re-renders if props change
-const StepCard = memo(function StepCard({
-    number,
-    title,
-    description,
-}: (typeof steps)[number]) {
-    return (
-        // glowColor must be HSL values: "h s l" — #CC1302 in HSL is ~6deg 97% 40%
-        <BorderGlow
-            edgeSensitivity={30}
-            glowColor="6 97 40"        // ← was "40 80 80", now #CC1302 in HSL
-            backgroundColor="#030303"   // ← match your inner card bg
-            borderRadius={28}
-            glowRadius={40}
-            glowIntensity={1.5}         // ← bump intensity so it's visible
-            coneSpread={25}
-            animated={true}
-            colors={GLOW_COLORS}
-            fillOpacity={0.3}
-        >
-            {/* Remove the border from the inner div — BorderGlow handles it */}
-            <div className="bg-[#030303] rounded-2xl px-5 sm:px-7 border border-[#CC1302]/70 py-8 sm:py-10 flex flex-col gap-4 sm:gap-5 h-full">
-                <span className="self-start bg-[#CC1302] text-white text-xs font-medium px-3.5 sm:px-4 py-1.5 rounded-full">
-                    {number}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-semibold text-white">{title}</h3>
-                <p className="text-white/65 text-sm leading-relaxed">{description}</p>
-            </div>
-        </BorderGlow>
-    );
-});
-
 export default function Header2() {
     return (
-        // Single element — removed redundant nested <section>
-        <motion.section
+        <section
             style={{ willChange: "transform, opacity" }}
             className="min-h-screen flex items-center justify-center px-5 sm:px-10 lg:px-20 xl:px-40 py-16 font-sans"
         >
-            <div className="w-full max-w-7xl mx-auto">
-                {/* Top label */}
-                <div className="mb-6 sm:mb-8 inline-flex items-center gap-2 rounded-full border border-[#CC1302]/30 bg-[#CC1302]/10 px-4 py-1.5 overflow-hidden">
-                    <motion.span
-                        className="h-2 w-2 rounded-full bg-[#CC1302] shrink-0"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                    />
-                    <motion.span
-                        className="text-xs sm:text-sm font-medium text-[#CC1302] whitespace-nowrap overflow-hidden"
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: "auto", opacity: 1 }}
-                        transition={{ duration: 0.5, ease: "easeOut", delay: 0.35 }}
-                    >
-                        How we Work
-                    </motion.span>
-                </div>
 
-                {/* Heading */}
-                <motion.h1
-                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-5 tracking-tight text-white"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2 }}
-                >
-                    <span className="block">From vision to</span>
-                    <span className="flex flex-wrap gap-2 sm:gap-3">
-                        {HEADING_WORDS.map((word, i) => (
-                            <motion.span
-                                key={word}
-                                className="text-[#CC1302]"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.7, delay: 0.1 + i * 0.2 }}
+            <section className="bg-[#030303] px-6 py-24">
+                <div className="mx-auto max-w-5xl">
+                    {/* Heading */}
+                    <div className="mb-14">
+                        <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#CC1302]">
+                            How We Work
+                        </span>
+
+                        <h2 className="mt-3 text-4xl font-bold text-[#F2F0EC]">
+                            From vision to{" "}
+                            <span className="text-[#CC1302]">cinematic experience</span>
+                        </h2>
+
+                        <div className="mt-5 h-px w-16 bg-[#CC1302]" />
+                    </div>
+
+                    {/* Steps */}
+                    <div className="grid gap-7 md:grid-cols-3">
+                        {steps.map((step, i) => (
+                            <motion.div
+                                key={step.number}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.3 }}
+                                transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
+                                className="border border-[#CC1302]/15 bg-[#0A0A0A] p-6 transition-all duration-300 hover:border-[#CC1302]/50"
                             >
-                                {word}
-                            </motion.span>
-                        ))}
-                    </span>
-                </motion.h1>
+                                <span className="font-mono text-xs tracking-[0.3em] text-[#CC1302]">
+                                    Step {step.number}
+                                </span>
 
-                {/* Step cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 sm:mt-12">
-                    {steps.map((step) => (
-                        <StepCard key={step.number} {...step} />
-                    ))}
+                                <h4 className="mt-5 mb-3 text-xl font-semibold text-[#F2F0EC]">
+                                    {step.title}
+                                </h4>
+
+                                <p className="leading-7 text-[#8A8A88]">
+                                    {step.description}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </motion.section>
+            </section>
+        </section>
     );
 }

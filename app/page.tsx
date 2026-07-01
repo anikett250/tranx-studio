@@ -7,7 +7,15 @@ import Navbar from "./components/navbar";
 import ProjectShowcase from "./components/projectshowcase";
 import Aboutus from "./components/about";
 import WhatIsTranxStudio from "./components/whoarewe";
+import ContactSection from "./components/contact";
+import Footer from "./components/footer";
 import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  VscHome,
+  VscAccount,
+  VscOrganization,
+  VscFolderLibrary,
+} from "react-icons/vsc";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,10 +53,45 @@ export default function Home() {
     v >= 0.5 ? "auto" : "none"
   );
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const items = [
+    {
+      icon: <VscHome size={18} />,
+      label: "Home",
+      onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      icon: <VscAccount size={18} />,
+      label: "About",
+      onClick: () => scrollTo("about"),
+    },
+    {
+      icon: <VscOrganization size={18} />,
+      label: "Tranx Studio",
+      onClick: () => scrollTo("tranxstudio"),
+    },
+    {
+      icon: <VscFolderLibrary size={18} />,
+      label: "Projects",
+      onClick: () => scrollTo("projects"),
+    },
+  ];
+
   return (
     <>
       <div ref={containerRef} className="relative h-[200vh]">
-        <Navbar />
+        <Navbar
+          items={items}
+          panelHeight={68}
+          baseItemSize={50}
+          magnification={70}
+        />
 
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <motion.div
@@ -78,6 +121,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
+        id="projects"
       >
         <ProjectShowcase />
       </motion.div>
@@ -87,6 +131,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
+        id="tranxstudio"
       >
         <WhatIsTranxStudio />
       </motion.div>
@@ -96,8 +141,25 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
+        id="about"
       >
         <Aboutus />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <ContactSection />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <Footer />
       </motion.div>
     </>
   );

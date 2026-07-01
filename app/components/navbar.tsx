@@ -1,120 +1,207 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+    motion,
+    MotionValue,
+    useMotionValue,
+    useSpring,
+    useTransform,
+    type SpringOptions,
+    AnimatePresence
+} from 'framer-motion';
+import React, { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
 
-const links = ["About", "Services", "Pricing"];
+import './navbar.css';
 
-function CTAButton() {
+export type DockItemData = {
+    icon: React.ReactNode;
+    label: React.ReactNode;
+    onClick: () => void;
+    className?: string;
+};
+
+export type DockProps = {
+    items: DockItemData[];
+    className?: string;
+    distance?: number;
+    panelHeight?: number;
+    baseItemSize?: number;
+    dockHeight?: number;
+    magnification?: number;
+    spring?: SpringOptions;
+};
+
+type DockItemProps = {
+    className?: string;
+    children: React.ReactNode;
+    onClick?: () => void;
+    mouseX: MotionValue<number>;
+    spring: SpringOptions;
+    distance: number;
+    baseItemSize: number;
+    magnification: number;
+    label?: React.ReactNode;
+};
+
+function DockItem({
+    children,
+    className = '',
+    onClick,
+    mouseX,
+    spring,
+    distance,
+    magnification,
+    baseItemSize,
+    label
+}: DockItemProps) {
+    const ref = useRef<HTMLDivElement>(null);
+    const isHovered = useMotionValue(0);
+
+    const mouseDistance = useTransform(mouseX, val => {
+        const rect = ref.current?.getBoundingClientRect() ?? {
+            x: 0,
+            width: baseItemSize
+        };
+        return val - rect.x - baseItemSize / 2;
+    });
+
+    const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+    const size = useSpring(targetSize, spring);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick?.();
+        }
+    };
+
     return (
-        <motion.button
-            className="text-white bg-[#CC1302] border border-[#CC1302] text-sm font-semibold px-5 py-2.5 rounded-[10px]"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 220, damping: 18 }}
+        <motion.div
+            ref={ref}
+            style={{
+                width: size,
+                height: size
+            }}
+            onHoverStart={() => isHovered.set(1)}
+            onHoverEnd={() => isHovered.set(0)}
+            onFocus={() => isHovered.set(1)}
+            onBlur={() => isHovered.set(0)}
+            onClick={onClick}
+            onKeyDown={handleKeyDown}
+            className={`dock-item ${className}`}
+            tabIndex={0}
+            role="button"
+            aria-haspopup="true"
+            aria-label={typeof label === 'string' ? label : undefined}
         >
-            Book a Call
-        </motion.button>
+            {Children.map(children, child =>
+                React.isValidElement(child)
+                    ? cloneElement(child as React.ReactElement<{ isHovered?: MotionValue<number> }>, { isHovered })
+                    : child
+            )}
+        </motion.div>
     );
 }
 
-export default function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
+type DockLabelProps = {
+    className?: string;
+    children: React.ReactNode;
+    isHovered?: MotionValue<number>;
+};
+
+function DockLabel({ children, className = '', isHovered }: DockLabelProps) {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        if (!isHovered) return;
+        const unsubscribe = isHovered.on('change', latest => {
+            setIsVisible(latest === 1);
+        });
+        return () => unsubscribe();
+    }, [isHovered]);
 
     return (
-        <div className="fixed left-1/2 top-6 z-50 w-[92vw] max-w-6xl -translate-x-1/2">
-            <nav className="relative w-full max-w-5xl mx-auto mt-8 px-4 py-3 flex items-center justify-between rounded-full border border-white/15 bg-black/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.12)]">
-                    {/* Logo */}
-                    <div className="flex items-center gap-2 text-white font-bold text-xl">
-                        <img src="./logo.png" alt=""
-                            className="w-10 h-10 ml-5"
-                        />
-                        <span className="">
-                            Tranx Studio
-                        </span>
-                    </div>
+        <AnimatePresence>
+            {isVisible && (
+                <motion.div
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: -10 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`dock-label ${className}`}
+                    role="tooltip"
+                    style={{ x: '-50%' }}
+                >
+                    {children}
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+}
 
-                    {/* Desktop Nav */}
-                    <ul className="hidden md:flex items-center gap-3">
-                        {links.map((link) => (
-                            <li key={link}>
-                                <a
-                                    href={`#${link.toLowerCase()}`}
-                                    className="px-4 py-2.5 rounded-[10px] text-white font-bold text-sm hover:text-white hover:bg-white/10 transition"
-                                >
-                                    {link}
-                                </a>
-                            </li>
-                        ))}
+type DockIconProps = {
+    className?: string;
+    children: React.ReactNode;
+    isHovered?: MotionValue<number>;
+};
 
-                        {/* Desktop CTA */}
-                        <div className="hidden md:block ml-10 ">
-                            <CTAButton />
-                        </div>
-                    </ul>
+function DockIcon({ children, className = '' }: DockIconProps) {
+    return <div className={`dock-icon ${className}`}>{children}</div>;
+}
 
-                    {/* Mobile Toggle */}
-                    <button
-                        className="md:hidden text-white"
-                        onClick={() => setMenuOpen((prev) => !prev)}
-                        aria-expanded={menuOpen}
-                        aria-controls="mobile-menu"
-                        aria-label="Toggle navigation"
+export default function Dock({
+    items,
+    className = '',
+    spring = { mass: 0.1, stiffness: 150, damping: 12 },
+    magnification = 70,
+    distance = 200,
+    panelHeight = 68,
+    dockHeight = 256,
+    baseItemSize = 50
+}: DockProps) {
+    const mouseX = useMotionValue(Infinity);
+    const isHovered = useMotionValue(0);
+
+    const maxHeight = useMemo(
+        () => Math.max(dockHeight, magnification + magnification / 2 + 4),
+        [magnification, dockHeight]
+    );
+    const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
+    const height = panelHeight;
+
+    return (
+        <motion.div style={{ height, scrollbarWidth: 'none' }} className="dock-outer">
+            <motion.div
+                onMouseMove={({ pageX }) => {
+                    isHovered.set(1);
+                    mouseX.set(pageX);
+                }}
+                onMouseLeave={() => {
+                    isHovered.set(0);
+                    mouseX.set(Infinity);
+                }}
+                className={`dock-panel ${className}`}
+                style={{ height: panelHeight }}
+                role="toolbar"
+                aria-label="Application dock"
+            >
+                {items.map((item, index) => (
+                    <DockItem
+                        key={index}
+                        onClick={item.onClick}
+                        className={item.className}
+                        mouseX={mouseX}
+                        spring={spring}
+                        distance={distance}
+                        magnification={magnification}
+                        baseItemSize={baseItemSize}
+                        label={item.label}
                     >
-                        <svg
-                            className={`transition-transform duration-300 ${menuOpen ? "rotate-90" : ""
-                                }`}
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                        >
-                            {menuOpen ? (
-                                <>
-                                    <line x1="4" y1="4" x2="18" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                    <line x1="18" y1="4" x2="4" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                </>
-                            ) : (
-                                <>
-                                    <line x1="3" y1="6" x2="19" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                    <line x1="3" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                    <line x1="3" y1="16" x2="19" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                </>
-                            )}
-                        </svg>
-                    </button>
-
-                    {/* Mobile Menu */}
-                    <AnimatePresence>
-                        {menuOpen && (
-                            <motion.div
-                                id="mobile-menu"
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.2 }}
-                                className="absolute left-0 right-0 top-full mt-3 mx-2 rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-4 md:hidden"
-                            >
-                                <div className="flex flex-col gap-2">
-                                    {links.map((link) => (
-                                        <a
-                                            key={link}
-                                            href={`#${link.toLowerCase()}`}
-                                            onClick={() => setMenuOpen(false)}
-                                            className="rounded-lg px-3 py-2 text-white/75 hover:bg-white/10 hover:text-white transition"
-                                        >
-                                            {link}
-                                        </a>
-                                    ))}
-
-                                    <div className="pt-2">
-                                        <CTAButton />
-                                    </div>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </nav>
-        </div>
+                        <DockIcon>{item.icon}</DockIcon>
+                        <DockLabel>{item.label}</DockLabel>
+                    </DockItem>
+                ))}
+            </motion.div>
+        </motion.div>
     );
 }

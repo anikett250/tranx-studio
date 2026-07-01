@@ -18,8 +18,8 @@ const statsData = [
 const HEADING_WORDS = ["New", "Visual", "Standard"];
 
 const BUTTONS_DATA = [
-    { label: "Book a Call", className: "bg-[#CC1302]" },
-    { label: "View Portfolio", className: "bg-white/5 hover:bg-white/10" },
+    { label: "Book a Call", className: "bg-[#030303] border border-[#CC1302] " },
+    { label: "View Portfolio", className: "bg-white/5 hover:bg-white/10 border border-white/10 " },
 ];
 
 // ─── Count-up hook ────────────────────────────────────────────────────────────
@@ -115,7 +115,7 @@ export default function Header() {
             className="relative w-full min-h-screen"
         >
             <div className="relative w-full h-full overflow-hidden">
-                <div className="absolute inset-0 -z-10">
+                {/* <div className="absolute inset-0 -z-10">
                                     <DarkVeil
                                         hueShift={0}
                                         noiseIntensity={0}
@@ -125,8 +125,8 @@ export default function Header() {
                                         warpAmount={0}
                                         resolutionScale={1}
                                     />
-                                </div>
-                <div className="relative z-10 flex min-h-screen items-center justify-center px-5 sm:px-6 py-24 sm:py-32">
+                                </div> */}
+                <div className="relative z-10 flex min-h-screen items-center justify-center px-5 sm:px-6 -top-20">
                     <div className="max-w-2xl text-center">
 
                         {/* Badge */}
@@ -186,11 +186,11 @@ export default function Header() {
                             {BUTTONS_DATA.map(({ label, className }) => (
                                 <motion.button
                                     key={label}
-                                    className={`w-full sm:w-auto rounded-xl border border-white/10 ${className} px-7 py-3 font-semibold text-white backdrop-blur-md`}
-                                    initial={{ opacity: 0 }}
+                                    className={`w-full sm:w-auto ${className} hover:bg-[#CC1302] hover:text-white px-7 py-3 font-semibold text-white`}
+                                    initial={{ opacity: 0, background: "#030303"  }}
                                     animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.7 }}
-                                    whileHover={{ y: -3, transition: springConfig }}
+                                    transition={{ duration: 0.3 }}
+                                    whileHover={{ y: -3, transition: springConfig, background: "#CC1302" }}
                                 >
                                     {label}
                                 </motion.button>
