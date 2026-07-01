@@ -71,8 +71,11 @@ void main() {
     // Brand accent (#CC1302)
     vec3 accent = vec3(204.0/255.0, 19.0/255.0, 2.0/255.0);
 
-    // Tint the grayscale output
-    col.rgb = accent * col.r;
+    // Base background (#030303) — the shader now blends toward this instead of pure black
+    vec3 base = vec3(3.0/255.0, 3.0/255.0, 3.0/255.0);
+
+    // Tint the grayscale output, blended over the base color
+    col.rgb = mix(base, accent, col.r);
 
     float scanline_val = sin(gl_FragCoord.y * uScanFreq) * 0.5 + 0.5;
     col.rgb *= 1.0 - (scanline_val * scanline_val) * uScan;
@@ -170,5 +173,5 @@ export default function DarkVeil({
             window.removeEventListener('resize', resize);
         };
     }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
-    return <canvas ref={ref} className="darkveil-canvas" />;
+    return <canvas ref={ref} className="darkveil-canvas" style={{ backgroundColor: "#030303" }} />;
 }

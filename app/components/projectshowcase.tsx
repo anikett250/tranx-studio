@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { ArrowUpRight, Map, Activity, Layers, Aperture, LucideIcon } from "lucide-react";
 
 const ACCENT = "#CC1302";
@@ -54,6 +55,13 @@ const projects: Project[] = [
   },
 ];
 
+// Hoisted so this style object isn't reallocated on every card render
+const GRID_BG_STYLE = {
+  backgroundImage:
+    "linear-gradient(#CC1302 1px, transparent 1px), linear-gradient(90deg, #CC1302 1px, transparent 1px)",
+  backgroundSize: "28px 28px",
+} as const;
+
 function Corner({ className }: { className: string }) {
   return (
     <span
@@ -63,7 +71,7 @@ function Corner({ className }: { className: string }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+const ProjectCard = memo(function ProjectCard({ project }: { project: Project }) {
   const Icon = project.icon;
 
   return (
@@ -77,14 +85,7 @@ function ProjectCard({ project }: { project: Project }) {
 
       {/* Thumbnail */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#050505]">
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#CC1302 1px, transparent 1px), linear-gradient(90deg, #CC1302 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
+        <div className="absolute inset-0 opacity-[0.06]" style={GRID_BG_STYLE} />
         <Icon
           className="absolute -bottom-6 -right-6 w-36 h-36 text-[#CC1302] opacity-[0.12] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-[0.18]"
           strokeWidth={1}
@@ -98,7 +99,6 @@ function ProjectCard({ project }: { project: Project }) {
             rel="noopener noreferrer"
             className="flex translate-y-2 items-center gap-2 border border-[#CC1302] px-4 py-2 text-xs font-medium uppercase tracking-wider text-[#F2F0EC] opacity-0 transition-all duration-300 delay-75 hover:bg-[#CC1302] group-hover:translate-y-0 group-hover:opacity-100"
           >
-            {/* <Github size={14} /> */}
             Visit code
           </a>
           <a
@@ -135,7 +135,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
     </div>
   );
-}
+});
 
 export default function ProjectShowcase() {
   return (

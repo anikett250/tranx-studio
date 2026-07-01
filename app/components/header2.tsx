@@ -29,6 +29,11 @@ const steps = [
 const TRANSITION = { duration: 0.8, ease: "easeOut" } as const;
 const VIEWPORT = { once: true, amount: 0.3 } as const;
 
+// Hoisted so a new array/object isn't allocated on every StepCard render
+// (also keeps BorderGlow's own memoization, if any, actually effective)
+const GLOW_COLORS = ["#CC1302", "#ff4422", "#CC1302"];
+const HEADING_WORDS = ["Cinematic", "Experience"];
+
 // Memoized card — only re-renders if props change
 const StepCard = memo(function StepCard({
     number,
@@ -46,7 +51,7 @@ const StepCard = memo(function StepCard({
             glowIntensity={1.5}         // ← bump intensity so it's visible
             coneSpread={25}
             animated={true}
-            colors={["#CC1302", "#ff4422", "#CC1302"]}  // ← red tones only
+            colors={GLOW_COLORS}
             fillOpacity={0.3}
         >
             {/* Remove the border from the inner div — BorderGlow handles it */}
@@ -96,7 +101,7 @@ export default function Header2() {
                 >
                     <span className="block">From vision to</span>
                     <span className="flex flex-wrap gap-2 sm:gap-3">
-                        {["Cinematic", "Experience"].map((word, i) => (
+                        {HEADING_WORDS.map((word, i) => (
                             <motion.span
                                 key={word}
                                 className="text-[#CC1302]"
