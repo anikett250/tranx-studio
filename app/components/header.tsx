@@ -92,17 +92,13 @@ const Stats = memo(function Stats() {
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 export default function Header() {
-    const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [150, 1000], [1, 0]);
-    const translateY = useTransform(scrollY, [150, 1000], [0, -30]);
 
     return (
         <motion.section
-            style={{ opacity, willChange: "transform, opacity", translateY }}
             className="relative w-screen h-screen"
         >
             <div className="relative w-full h-full overflow-hidden">
-                <div className="absolute inset-0 -z-10">
+                {/* <div className="absolute inset-0 -z-10">
                     <DarkVeil
                         hueShift={0}
                         noiseIntensity={0}
@@ -112,7 +108,7 @@ export default function Header() {
                         warpAmount={0}
                         resolutionScale={1}
                     />
-                </div>
+                </div> */}
                 <div className="relative z-10 flex mt-50 items-center justify-center px-6">
                     <div className="max-w-2xl text-center">
 

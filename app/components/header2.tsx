@@ -50,11 +50,11 @@ const StepCard = memo(function StepCard({
             fillOpacity={0.3}
         >
             {/* Remove the border from the inner div — BorderGlow handles it */}
-            <div className="bg-[#030303] rounded-2xl px-7 border border-[#CC1302]/70 py-10 flex flex-col gap-5">
-                <span className="self-start bg-[#CC1302] text-white text-xs font-medium px-4 py-1.5 rounded-full">
+            <div className="bg-[#030303] rounded-2xl px-5 sm:px-7 border border-[#CC1302]/70 py-8 sm:py-10 flex flex-col gap-4 sm:gap-5 h-full">
+                <span className="self-start bg-[#CC1302] text-white text-xs font-medium px-3.5 sm:px-4 py-1.5 rounded-full">
                     {number}
                 </span>
-                <h3 className="text-2xl font-semibold text-white">{title}</h3>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">{title}</h3>
                 <p className="text-white/65 text-sm leading-relaxed">{description}</p>
             </div>
         </BorderGlow>
@@ -65,17 +65,12 @@ export default function Header2() {
     return (
         // Single element — removed redundant nested <section>
         <motion.section
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={TRANSITION}
-            viewport={VIEWPORT}
-            // willChange hints the browser before the animation fires
             style={{ willChange: "transform, opacity" }}
-            className="min-h-screen flex items-center justify-center px-40 py-16 font-sans"
+            className="min-h-screen flex items-center justify-center px-5 sm:px-10 lg:px-20 xl:px-40 py-16 font-sans"
         >
-            <div className="w-full">
+            <div className="w-full max-w-7xl mx-auto">
                 {/* Top label */}
-                <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#CC1302]/30 bg-[#CC1302]/10 px-4 py-1.5 overflow-hidden">
+                <div className="mb-6 sm:mb-8 inline-flex items-center gap-2 rounded-full border border-[#CC1302]/30 bg-[#CC1302]/10 px-4 py-1.5 overflow-hidden">
                     <motion.span
                         className="h-2 w-2 rounded-full bg-[#CC1302] shrink-0"
                         initial={{ scale: 0, opacity: 0 }}
@@ -83,7 +78,7 @@ export default function Header2() {
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     />
                     <motion.span
-                        className="text-sm font-medium text-[#CC1302] whitespace-nowrap overflow-hidden"
+                        className="text-xs sm:text-sm font-medium text-[#CC1302] whitespace-nowrap overflow-hidden"
                         initial={{ width: 0, opacity: 0 }}
                         animate={{ width: "auto", opacity: 1 }}
                         transition={{ duration: 0.5, ease: "easeOut", delay: 0.35 }}
@@ -94,30 +89,29 @@ export default function Header2() {
 
                 {/* Heading */}
                 <motion.h1
-                            className="text-5xl font-bold leading-tight mb-5 tracking-tight text-white md:text-7xl"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1.2 }}
-                        >
-                            From vision to
-                            <br />
-                            <div className="flex gap-3">
-                                {["Cinematic", "Experience"].map((word, i) => (
-                                    <motion.span
-                                        key={word}
-                                        className="text-[#CC1302]"
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.7, delay: 0.1 + i * 0.2 }}
-                                    >
-                                        {word}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </motion.h1>
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-5 tracking-tight text-white"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.2 }}
+                >
+                    <span className="block">From vision to</span>
+                    <span className="flex flex-wrap gap-2 sm:gap-3">
+                        {["Cinematic", "Experience"].map((word, i) => (
+                            <motion.span
+                                key={word}
+                                className="text-[#CC1302]"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, delay: 0.1 + i * 0.2 }}
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                    </span>
+                </motion.h1>
 
                 {/* Step cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 sm:mt-12">
                     {steps.map((step) => (
                         <StepCard key={step.number} {...step} />
                     ))}
