@@ -5,18 +5,18 @@ import Header from "./components/header";
 import Header2 from "./components/header2";
 import Navbar from "./components/navbar";
 import ProjectShowcase from "./components/projectshowcase";
+import Aboutus from "./components/about";
+import WhatIsTranxStudio from "./components/whoarewe";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // scrollYProgress goes 0 -> 1 across this pinned container's scroll range only.
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Header fades out first (0 -> 0.5), fully gone before Header2 starts.
   const headerOpacity = useTransform(
     scrollYProgress,
     [0, 1],
@@ -31,7 +31,6 @@ export default function Home() {
     { clamp: true }
   );
 
-  // Header2 only starts fading in once Header has fully faded out.
   const header2Opacity = useTransform(
     scrollYProgress,
     [0.5, 1],
@@ -48,8 +47,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Sequential fade: Header fully fades out, THEN Header2 fades in.
-          Height controls how much scroll distance the whole thing takes. */}
       <div ref={containerRef} className="relative h-[200vh]">
         <Navbar />
 
@@ -76,10 +73,6 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
-
-      {/* Header2 fades out as this scrolls into view, ProjectShowcase fades in.
-          whileInView triggers only after the pinned container above has ended,
-          so this can't overlap with Header/Header2's own fade timing. */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -87,6 +80,24 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <ProjectShowcase />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <WhatIsTranxStudio />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <Aboutus />
       </motion.div>
     </>
   );
