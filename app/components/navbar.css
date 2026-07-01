@@ -1,8 +1,5 @@
 .dock-outer {
-    margin: 0 0.5rem;
-    display: flex;
-    max-width: 100%;
-    align-items: center;
+    display: contents;
 }
 
 .dock-panel {
@@ -11,7 +8,6 @@
     bottom: 24px;
     transform: translateX(-50%);
     z-index: 9999;
-    transform: translateX(-50%);
     display: flex;
     align-items: flex-end;
     width: fit-content;

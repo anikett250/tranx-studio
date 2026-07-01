@@ -111,21 +111,21 @@ const Stats = memo(function Stats() {
 export default function Header() {
 
     return (
-        <motion.section
+        <section
             className="relative w-full min-h-screen"
         >
             <div className="relative w-full h-full overflow-hidden">
                 <div className="absolute inset-0 -z-10">
-                                    <DarkVeil
-                                        hueShift={0}
-                                        noiseIntensity={0}
-                                        scanlineIntensity={0}
-                                        speed={0.5}
-                                        scanlineFrequency={0}
-                                        warpAmount={0}
-                                        resolutionScale={1}
-                                    />
-                                </div>
+                    <DarkVeil
+                        hueShift={0}
+                        noiseIntensity={0}
+                        scanlineIntensity={0}
+                        speed={0.5}
+                        scanlineFrequency={0}
+                        warpAmount={0}
+                        resolutionScale={1}
+                    />
+                </div>
                 <div className="relative z-10 flex min-h-screen items-center justify-center px-5 sm:px-6 -top-20">
                     <div className="max-w-2xl text-center">
 
@@ -187,7 +187,7 @@ export default function Header() {
                                 <motion.button
                                     key={label}
                                     className={`w-full sm:w-auto ${className} hover:bg-[#CC1302] hover:text-white px-7 py-3 font-semibold text-white`}
-                                    initial={{ opacity: 0, background: "#030303"  }}
+                                    initial={{ opacity: 0, background: "#030303" }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.3 }}
                                     whileHover={{ y: -3, transition: springConfig, background: "#CC1302" }}
@@ -201,6 +201,6 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-        </motion.section>
+        </section>
     );
 }

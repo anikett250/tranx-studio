@@ -93,7 +93,7 @@ export default function Home() {
           magnification={70}
         />
 
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div className="sticky top-0 h-dvh w-full overflow-hidden">
           <motion.div
             style={{
               opacity: headerOpacity,
