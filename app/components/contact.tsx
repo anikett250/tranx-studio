@@ -58,13 +58,35 @@ export default function ContactSection() {
         e.preventDefault();
         setStatus("submitting");
 
-        // <-- Replace with your actual submit logic (API route, email service, etc.)
-        await new Promise((resolve) => setTimeout(resolve, 1200));
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form),
+            });
 
-        setStatus("success");
-        setForm({ name: "", email: "", phone: "", message: "" });
+            const data = await response.json();
 
-        setTimeout(() => setStatus("idle"), 4000);
+            if (!response.ok) {
+                throw new Error(data.error || "Something went wrong");
+            }
+
+            setStatus("success");
+            setForm({
+                name: "",
+                email: "",
+                phone: "",
+                message: "",
+            });
+
+            setTimeout(() => setStatus("idle"), 4000);
+        } catch (err) {
+            console.error(err);
+            alert("Failed to send message.");
+            setStatus("idle");
+        }
     };
 
     return (

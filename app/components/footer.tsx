@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const menuLinks = [
     { label: "About Us", href: "#about" },
     { label: "Tranx Studio", href: "#studio" },
@@ -120,10 +122,19 @@ export default function Footer() {
                     <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#8A8A88]">
                         © {new Date().getFullYear()} Tranx Studio
                     </p>
-
-                    <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#8A8A88]">
-                        All Rights Reserved
-                    </p>
+                    <div className="flex flex-col gap-3">
+                        <div className="flex gap-5">
+                            <Link href="/policy" className="font-mono text-xs uppercase tracking-[0.3em] text-[#8A8A88]">
+                                Policy
+                            </Link>
+                            <Link href="/terms" className="font-mono text-xs uppercase tracking-[0.3em] text-[#8A8A88]">
+                                Terms
+                            </Link>
+                        </div>
+                        <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#8A8A88]">
+                            All Rights Reserved
+                        </p>
+                    </div>
                 </div>
 
             </div>

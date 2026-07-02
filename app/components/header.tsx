@@ -115,7 +115,7 @@ export default function Header() {
             className="relative w-full min-h-screen"
         >
             <div className="relative w-full h-full overflow-hidden">
-                <div className="absolute inset-0 -z-10">
+                {/* <div className="absolute inset-0 -z-10">
                     <DarkVeil
                         hueShift={0}
                         noiseIntensity={0}
@@ -125,7 +125,7 @@ export default function Header() {
                         warpAmount={0}
                         resolutionScale={1}
                     />
-                </div>
+                </div> */}
                 <div className="relative z-10 flex min-h-screen items-center justify-center px-5 sm:px-6 -top-20">
                     <div className="max-w-2xl text-center">
 
