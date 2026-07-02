@@ -18,16 +18,16 @@ const contactInfo = [
         value: "hello@youragency.com",
         icon: Mail,
     },
-    {
-        title: "Aniket's Email (CTO)",
-        value: "anikettiwari25000@gmail.com",
-        icon: Mail,
-    },
-    {
-        title: "Tanmay's Email (CMO)",
-        value: "hello@youragency.com",
-        icon: Mail,
-    },
+    // {
+    //     title: "Aniket's Email (CTO)",
+    //     value: "anikettiwari25000@gmail.com",
+    //     icon: Mail,
+    // },
+    // {
+    //     title: "Tanmay's Email (CMO)",
+    //     value: "hello@youragency.com",
+    //     icon: Mail,
+    // },
     {
         title: "Place",
         value: "India-based • Working with clients worldwide • Remote-first delivery",

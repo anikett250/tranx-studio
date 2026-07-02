@@ -15,9 +15,7 @@ const socialLinks = [
 ];
 
 const contactEmails = [
-    "hello@tranxstudio.com",
-    "projects@tranxstudio.com",
-    "careers@tranxstudio.com",
+    "hello@tranxstudio.com"
 ];
 
 export default function Footer() {

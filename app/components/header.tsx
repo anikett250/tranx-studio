@@ -9,12 +9,11 @@ import DarkVeil from "./DarkVeil";
 const springConfig = { type: "spring", stiffness: 220, damping: 18 } as const;
 
 const statsData = [
-    { value: 150, suffix: "+", label: "Projects" },
-    { value: 50, suffix: "M+", label: "Views Generated" },
-    { value: 100, suffix: "%", label: "Satisfaction" },
+    { value: 5, suffix: "+", label: "Projects" },
+    { value: 100, suffix: "%", label: "Clean Code" },
+    { value: 100, suffix: "%", label: "SEO Optimized" },
 ];
 
-// Hoisted so these aren't recreated (and don't break child memoization) on every render
 const HEADING_WORDS = ["New", "Visual", "Standard"];
 
 const BUTTONS_DATA = [
@@ -23,9 +22,6 @@ const BUTTONS_DATA = [
 ];
 
 // ─── Count-up hook ────────────────────────────────────────────────────────────
-// Only calls setState when the displayed integer actually changes, instead of
-// on every animation frame (~60 times/sec). This cuts re-renders drastically
-// and is the main fix for the scroll-triggered stutter.
 
 function useCountUp(target: number, inView: boolean, duration = 3000) {
     const [count, setCount] = useState(0);
@@ -143,7 +139,7 @@ export default function Header() {
                                 animate={{ width: "auto", opacity: 1 }}
                                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.35 }}
                             >
-                                Professional Video Editing
+                                Premium Web Engineering
                             </motion.span>
                         </div>
 
@@ -177,8 +173,7 @@ export default function Header() {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.7, delay: 0.6 }}
                         >
-                            Premium video editing for creators, brands, and businesses that
-                            want to stand out and drive more engagement across every platform.
+                            Architecting high-performance web applications, custom digital platforms, and immersive user interfaces for scaling brands.
                         </motion.p>
 
                         {/* Buttons */}

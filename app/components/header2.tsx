@@ -5,21 +5,21 @@ import { motion } from "framer-motion";
 const steps = [
     {
         number: "01",
-        title: "Share your vision",
+        title: "Define the Blueprint",
         description:
-            "Tell us about your project, goals, style preferences, and references. Upload your footage and brand assets to get started.",
+            "Tell us about your product goals, target audience, and functional requirements. We align on technical scope and user experience (UX) mapping.",
     },
     {
         number: "02",
-        title: "We edit & create",
+        title: "Architect & Code",
         description:
-            "Our expert editors craft your video with clean cuts, motion graphics, color grading, and sound design.",
+            "We engineer your custom web platform using cutting-edge tech stacks, combining pixel-perfect frontend design with high-performance logic.",
     },
     {
         number: "03",
-        title: "Review & deliver",
+        title: "Test & Deploy",
         description:
-            "Receive your first draft, request revisions, and get the final high-quality video ready to publish.",
+            "Review the staging environment, fine-tune responsiveness, and launch your lightning-fast web product live to the world.",
     },
 ];
 
@@ -39,8 +39,8 @@ export default function Header2() {
                         </span>
 
                         <h2 className="mt-3 text-4xl font-bold text-[#F2F0EC]">
-                            From vision to{" "}
-                            <span className="text-[#CC1302]">cinematic experience</span>
+                            From concept to{" "}
+                            <span className="text-[#CC1302]">deployment</span>
                         </h2>
 
                         <div className="mt-5 h-px w-16 bg-[#CC1302]" />
