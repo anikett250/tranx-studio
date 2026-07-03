@@ -9,13 +9,13 @@ const menuLinks = [
 ];
 
 const socialLinks = [
-    { label: "X", href: "https://x.com" },
-    { label: "Instagram", href: "https://instagram.com" },
+    { label: "X", href: "https://x.com/Tranxstudio" },
+    { label: "Instagram", href: "https://www.instagram.com/tranx_studio/" },
     { label: "LinkedIn", href: "https://linkedin.com" },
 ];
 
 const contactEmails = [
-    "hello@tranxstudio.com"
+    "sales@tranxstudio.site"
 ];
 
 export default function Footer() {
@@ -33,7 +33,9 @@ export default function Footer() {
                         <h2 className="mt-3 text-4xl font-bold leading-tight text-[#F2F0EC] md:text-7xl">
                             Let&apos;s Work
                             <br />
+                            <span className="text-[#CC1302] ">
                             Together
+                            </span>
                         </h2>
 
                         <div className="mt-5 h-px w-16 bg-[#CC1302]" />

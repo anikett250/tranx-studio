@@ -17,8 +17,16 @@ const statsData = [
 const HEADING_WORDS = ["New", "Visual", "Standard"];
 
 const BUTTONS_DATA = [
-    { label: "Book a Call", className: "bg-[#030303] border border-[#CC1302] " },
-    { label: "View Portfolio", className: "bg-white/5 hover:bg-white/10 border border-white/10 " },
+    {
+        label: "Book a Call",
+        className: "bg-[#030303] border border-[#CC1302]",
+        href: "#contact",
+    },
+    {
+        label: "View Portfolio",
+        className: "bg-white/5 hover:bg-white/10 border border-white/10",
+        href: "#projects",
+    },
 ];
 
 // ─── Count-up hook ────────────────────────────────────────────────────────────
@@ -151,7 +159,7 @@ export default function Header() {
                             transition={{ duration: 1.2 }}
                         >
                             <span className="block">Setting the</span>
-                            <span className="flex flex-wrap gap-2 sm:gap-3 justify-center">
+                            <span className="flex gap-2 sm:gap-3 justify-center">
                                 {HEADING_WORDS.map((word, i) => (
                                     <motion.span
                                         key={word}
@@ -178,17 +186,18 @@ export default function Header() {
 
                         {/* Buttons */}
                         <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                            {BUTTONS_DATA.map(({ label, className }) => (
-                                <motion.button
+                            {BUTTONS_DATA.map(({ label, className, href }) => (
+                                <motion.a
                                     key={label}
-                                    className={`w-full sm:w-auto ${className} hover:bg-[#CC1302] hover:text-white px-7 py-3 font-semibold text-white`}
+                                    href={href}
+                                    className={`w-full sm:w-auto ${className} hover:bg-[#CC1302] hover:text-white px-7 py-3 font-semibold text-white text-center`}
                                     initial={{ opacity: 0, background: "#030303" }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.3 }}
                                     whileHover={{ y: -3, transition: springConfig, background: "#CC1302" }}
                                 >
                                     {label}
-                                </motion.button>
+                                </motion.a>
                             ))}
                         </div>
 

@@ -17,7 +17,7 @@ const features = [
     {
         title: "Performance Focused",
         description:
-            "Every project is optimized for speed, SEO, accessibility and a smooth user experience across every device.",
+            "Every project is optimized for speed, SEO, accessibility, and a smooth user experience across every device.",
         icon: Zap,
     },
     {
@@ -47,14 +47,18 @@ export default function WhatIsTranxStudio() {
                         About Tranx Studio
                     </span>
 
-                    <h2 className="mt-4 text-5xl font-bold leading-tight text-[#F2F0EC]">
-                        What is Tranx Studio
+                    <h2 className="mt-4 text-5xl flex gap-3 font-bold leading-tight text-[#F2F0EC]">
+                        What is 
+                        <span className="text-[#CC1302] ">
+                        Tranx
+                        </span>
+                         Studio
                     </h2>
 
                     <div className="mt-6 h-px w-16 bg-[#CC1302]" />
 
                     <p className="mt-8 text-lg leading-8 text-[#8A8A88]">
-                        Tranx Studio is a digital product agency. We design, architect, and build custom web applications for brands looking to scale their digital infrastucture.
+                        Tranx Studio is a digital product agency. We design, architect, and build custom web applications for brands looking to scale their digital infrastructure.
                     </p>
 
                 </div>

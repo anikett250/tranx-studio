@@ -17,8 +17,7 @@ const members = [
     {
         name: "Aniket",
         role: "Chief Technology Officer",
-        image: "/team/aniket.jpg", // <-- Replace
-        bio: "I design and develop modern websites and web applications with a strong focus on performance, scalability, and user experience.",
+        bio: "I architect high-performance websites and web applications, focusing on enterprise scalability, clean code, and seamless user experiences.",
 
         expertise: [
             {
@@ -51,32 +50,31 @@ const members = [
     {
         name: "Tanmay",
         role: "Chief Marketing Officer",
-        image: "/team/tanmay.jpg", // <-- Replace
         bio: "I handle client communication, outreach, lead generation and ensure every project runs smoothly from start to finish.",
 
         expertise: [
             {
                 title: "Lead Generation",
                 description:
-                    "Finding high-quality businesses through personalized outreach.",
+                    "Identifying and engaging high-value businesses through strategic, hyper-personalized outreach.",
                 icon: Megaphone,
             },
             {
                 title: "Client Management",
                 description:
-                    "Maintaining strong relationships with every client.",
+                    "Cultivating long-term partnerships and ensuring seamless alignment with client vision.",
                 icon: Handshake,
             },
             {
                 title: "Project Management",
                 description:
-                    "Managing timelines, communication and project delivery.",
+                    "Overseeing operational timelines, stakeholder communication, and flawless project execution.",
                 icon: Briefcase,
             },
             {
                 title: "Business Growth",
                 description:
-                    "Helping the agency scale through marketing and partnerships.",
+                    "Driving agency scaling initiatives through strategic marketing and ecosystem partnerships.",
                 icon: Users,
             },
         ],
@@ -106,8 +104,11 @@ export default function AboutSection() {
                         About Us
                     </span>
 
-                    <h2 className="mt-3 text-4xl font-bold text-[#F2F0EC]">
-                        The people behind the work
+                    <h2 className="mt-3 text-4xl flex gap-2 font-bold text-[#F2F0EC]">
+                        The people behind the 
+                        <span className="text-[#CC1302] ">
+                        Work
+                        </span>
                     </h2>
 
                     <div className="mt-5 h-px w-16 bg-[#CC1302]" />

@@ -139,13 +139,17 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
 
 export default function ProjectShowcase() {
   return (
-    <section id="projects" className="w-full py-24 px-6" style={{ backgroundColor: BG }}>
+    <section className="w-full py-24 px-6" style={{ backgroundColor: BG }}>
       <div className="mx-auto max-w-5xl">
         <div className="mb-12 flex flex-col gap-3">
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#CC1302]">
             Selected work
           </span>
-          <h2 className="text-3xl font-bold text-[#F2F0EC] md:text-4xl">Featured projects</h2>
+          <h2 className="text-3xl flex gap-3 font-bold text-[#F2F0EC] md:text-4xl">Featured
+            <span className="text-[#CC1302] ">
+              Projects
+            </span>
+          </h2>
           <div className="mt-2 h-px w-16 bg-[#CC1302]" />
         </div>
 

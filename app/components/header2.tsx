@@ -40,7 +40,7 @@ export default function Header2() {
 
                         <h2 className="mt-3 text-4xl font-bold text-[#F2F0EC]">
                             From concept to{" "}
-                            <span className="text-[#CC1302]">deployment</span>
+                            <span className="text-[#CC1302]">Deployment</span>
                         </h2>
 
                         <div className="mt-5 h-px w-16 bg-[#CC1302]" />

@@ -15,19 +15,9 @@ import {
 const contactInfo = [
     {
         title: "Agency's Email",
-        value: "hello@youragency.com",
+        value: "sales@tranxstudio.site",
         icon: Mail,
     },
-    // {
-    //     title: "Aniket's Email (CTO)",
-    //     value: "anikettiwari25000@gmail.com",
-    //     icon: Mail,
-    // },
-    // {
-    //     title: "Tanmay's Email (CMO)",
-    //     value: "hello@youragency.com",
-    //     icon: Mail,
-    // },
     {
         title: "Place",
         value: "India-based • Working with clients worldwide • Remote-first delivery",
@@ -90,7 +80,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section className="bg-[#030303] px-6 py-24">
+        <section id="contact" className="bg-[#030303] px-6 py-24">
             <div className="mx-auto max-w-5xl">
 
                 {/* Heading */}
@@ -99,8 +89,11 @@ export default function ContactSection() {
                         Contact Us
                     </span>
 
-                    <h2 className="mt-3 text-4xl font-bold text-[#F2F0EC]">
-                        Let&apos;s start a conversation
+                    <h2 className="mt-3 text-4xl flex gap-2 font-bold text-[#F2F0EC]">
+                        Let&apos;s start a 
+                        <span className="text-[#CC1302] ">
+                        Conversation
+                        </span>
                     </h2>
 
                     <div className="mt-5 h-px w-16 bg-[#CC1302]" />
