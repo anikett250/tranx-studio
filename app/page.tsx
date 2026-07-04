@@ -15,10 +15,13 @@ import {
   VscAccount,
   VscOrganization,
   VscFolderLibrary,
+  VscArchive,
 } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -80,6 +83,11 @@ export default function Home() {
       icon: <VscFolderLibrary size={18} />,
       label: "Projects",
       onClick: () => scrollTo("projects"),
+    },
+    {
+      icon: <VscArchive size={18} />,
+      label: "Blogs",
+      onClick: () => router.push("/web-design"),
     },
   ];
 

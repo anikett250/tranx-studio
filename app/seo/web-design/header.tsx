@@ -2,19 +2,13 @@
 
 import { memo, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import DarkVeil from "./DarkVeil";
+import DarkVeil from "../../components/DarkVeil";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const springConfig = { type: "spring", stiffness: 220, damping: 18 } as const;
 
-const statsData = [
-    { value: 5, suffix: "+", label: "Projects" },
-    { value: 100, suffix: "%", label: "Clean Code" },
-    { value: 100, suffix: "%", label: "SEO Optimized" },
-];
-
-const HEADING_WORDS = ["New", "Visual", "Standard"];
+const HEADING_WORDS = ["Visitors", "Into", "Customers"];
 
 const BUTTONS_DATA = [
     {
@@ -68,49 +62,6 @@ function useCountUp(target: number, inView: boolean, duration = 3000) {
 
     return count;
 }
-
-// ─── Stat item ────────────────────────────────────────────────────────────────
-
-const StatItem = memo(function StatItem({
-    value,
-    suffix,
-    label,
-    inView,
-}: (typeof statsData)[number] & { inView: boolean }) {
-    const count = useCountUp(value, inView);
-
-    return (
-        <div className="text-center sm:text-left">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white tabular-nums">
-                {count}{suffix}
-            </h3>
-            <p className="mt-1 text-xs sm:text-sm uppercase tracking-wider text-white/50 whitespace-nowrap">
-                {label}
-            </p>
-        </div>
-    );
-});
-
-// ─── Stats ────────────────────────────────────────────────────────────────────
-
-const Stats = memo(function Stats() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, amount: 0.5 });
-
-    return (
-        <motion.div
-            ref={ref}
-            className="mt-12 sm:mt-14 flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-x-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 1 }}
-        >
-            {statsData.map((stat) => (
-                <StatItem key={stat.label} {...stat} inView={inView} />
-            ))}
-        </motion.div>
-    );
-});
 
 const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
@@ -168,7 +119,7 @@ export default function Header() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1.2 }}
                         >
-                            <span className="block">Setting the</span>
+                            <span className="block">Web Design That Turns</span>
                             <span className="flex gap-2 sm:gap-3 justify-center">
                                 {HEADING_WORDS.map((word, i) => (
                                     <motion.span
@@ -191,7 +142,7 @@ export default function Header() {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.7, delay: 0.6 }}
                         >
-                            Architecting high-performance web applications, custom digital platforms, and immersive user interfaces for scaling brands.
+                            We create fast, modern, and conversion-focused websites that build trust, strengthen your brand, and help your business grow.
                         </motion.p>
 
                         {/* Buttons */}
@@ -211,8 +162,6 @@ export default function Header() {
                                 </motion.a>
                             ))}
                         </div>
-
-                        <Stats />
                     </div>
                 </div>
             </div>
