@@ -21,11 +21,13 @@ const BUTTONS_DATA = [
         label: "Book a Call",
         className: "bg-[#030303] border border-[#CC1302]",
         href: "#contact",
+        onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
     {
         label: "View Portfolio",
         className: "bg-white/5 hover:bg-white/10 border border-white/10",
         href: "#projects",
+        onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 ];
 
@@ -110,6 +112,14 @@ const Stats = memo(function Stats() {
     );
 });
 
+const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+    });
+};
+
+
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 export default function Header() {
@@ -186,10 +196,11 @@ export default function Header() {
 
                         {/* Buttons */}
                         <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                            {BUTTONS_DATA.map(({ label, className, href }) => (
+                            {BUTTONS_DATA.map(({ label, className, href, onClick }) => (
                                 <motion.a
                                     key={label}
                                     href={href}
+                                    onClick={onClick}
                                     className={`w-full sm:w-auto ${className} hover:bg-[#CC1302] hover:text-white px-7 py-3 font-semibold text-white text-center`}
                                     initial={{ opacity: 0, background: "#030303" }}
                                     animate={{ opacity: 1 }}

@@ -166,7 +166,6 @@ export default function Dock({
         () => Math.max(dockHeight, magnification + magnification / 2 + 4),
         [magnification, dockHeight]
     );
-    const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
     const height = panelHeight;
 
     return (
