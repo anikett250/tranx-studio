@@ -87,7 +87,7 @@ export default function Home() {
     {
       icon: <VscArchive size={18} />,
       label: "Blogs",
-      onClick: () => router.push("/web-design"),
+      onClick: () => router.push("/seo"),
     },
   ];
 
