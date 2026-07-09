@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "./components/smoothscroll";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 
 const geist = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({
     >
       <body className={`${geist.className} min-h-full flex flex-col`}>
         <SmoothScroll>{children}</SmoothScroll>
+        <GoogleAnalytics gaId="G-KSPBKH3RCB" />
       </body>
     </html>
   );
