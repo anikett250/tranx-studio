@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { ArrowUpRight, Map, Activity, Layers, Aperture, LucideIcon } from "lucide-react";
+import Image from "next/image";
 
 const ACCENT = "#CC1302";
 const BG = "#030303";
@@ -12,46 +13,55 @@ type Project = {
   description: string;
   tags: string[];
   icon: LucideIcon;
+  image: string;
   codeUrl: string;
   liveUrl: string;
 };
 
 const projects: Project[] = [
   {
-    name: "Cartograph",
-    category: "Web app",
-    description: "An interactive map explorer for tracing custom routes and layered geodata in real time.",
-    tags: ["React", "D3.js", "Mapbox"],
+    name: "Lunar",
+    category: "Restaurant Web Page",
+    description:
+      "A modern restaurant website featuring an elegant menu, smooth animations, table reservation flow, and a responsive design crafted to elevate the dining experience.",
+    tags: ["React", "Tailwind", "Framer Motion", "Nextjs"],
     icon: Map,
-    codeUrl: "https://github.com/yourname/cartograph",
-    liveUrl: "https://cartograph.yourdomain.com",
+    image: "/restaurantdemo.png",
+    codeUrl: "https://github.com/anikett250/restaurant-demo",
+    liveUrl: "https://restaurantdemo3.netlify.app/",
   },
   {
-    name: "Pulse",
-    category: "Dashboard",
-    description: "A real-time analytics dashboard that turns raw fitness telemetry into readable trends.",
-    tags: ["Next.js", "TypeScript", "Postgres"],
+    name: "RoofClaim",
+    category: "Roofing Web Page",
+    description:
+      "A conversion-focused roofing landing page designed to generate qualified leads through clear service sections, trust signals, and strategically placed call-to-actions.",
+    tags: ["Next.js", "TypeScript", "React", "Tailwind", "Framer Motion"],
     icon: Activity,
-    codeUrl: "https://github.com/yourname/pulse",
-    liveUrl: "https://pulse.yourdomain.com",
+    image: "/roofingdemo.png",
+    codeUrl: "https://github.com/anikett250/roofing-demo2",
+    liveUrl: "https://roofingdemo3.netlify.app/",
   },
   {
-    name: "Foundry",
-    category: "Tool",
-    description: "A component library builder that generates a themeable design system from a single config file.",
-    tags: ["React", "Vite", "Storybook"],
+    name: "Ridge",
+    category: "Roofing Web Page",
+    description:
+      "A premium roofing company website showcasing services, project galleries, customer testimonials, and fast-loading pages optimized for local business growth.",
+    tags: ["Next.js", "TypeScript", "React", "Tailwind", "Framer Motion"],
     icon: Layers,
-    codeUrl: "https://github.com/yourname/foundry",
-    liveUrl: "https://foundry.yourdomain.com",
+    image: "/roofingdemo2.png",
+    codeUrl: "https://github.com/anikett250/roofing-demo4",
+    liveUrl: "https://ridgeroofingdemo.netlify.app/",
   },
   {
-    name: "Aperture",
-    category: "Web app",
-    description: "A minimal, browser-based photo editor with GPU-accelerated filters and no upload step.",
-    tags: ["WebGL", "Canvas API", "Rust/WASM"],
+    name: "Fine Dine (In Development)",
+    category: "Restaurant Web Page",
+    description:
+      "An upscale restaurant experience with immersive visuals, refined typography, online reservations, and a polished interface designed to reflect luxury dining.",
+    tags: ["React", "Tailwind", "Framer Motion", "Nextjs"],
     icon: Aperture,
-    codeUrl: "https://github.com/yourname/aperture",
-    liveUrl: "https://aperture.yourdomain.com",
+    image: "/restaurantdemo2.png",
+    codeUrl: "https://github.com/anikett250/restaurant-demo2",
+    liveUrl: "https://restaurantdemo4.netlify.app/",
   },
 ];
 
@@ -85,22 +95,28 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
 
       {/* Thumbnail */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#050505]">
-        <div className="absolute inset-0 opacity-[0.06]" style={GRID_BG_STYLE} />
-        <Icon
-          className="absolute -bottom-6 -right-6 w-36 h-36 text-[#CC1302] opacity-[0.12] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-[0.18]"
-          strokeWidth={1}
+        <Image
+          src={project.image}
+          alt={project.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-all duration-500 group-hover:scale-[1.03]"
         />
 
+        {/* Dark gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303]/90 via-[#030303]/25 to-transparent" />
+
         {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center gap-3 bg-[#030303]/0 opacity-0 transition-all duration-300 group-hover:bg-[#030303]/90 group-hover:opacity-100">
+        <div className="absolute inset-0 flex items-center justify-center gap-3 bg-[#030303]/0 opacity-0 transition-all duration-300 group-hover:bg-[#030303]/85 group-hover:opacity-100">
           <a
             href={project.codeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex translate-y-2 items-center gap-2 border border-[#CC1302] px-4 py-2 text-xs font-medium uppercase tracking-wider text-[#F2F0EC] opacity-0 transition-all duration-300 delay-75 hover:bg-[#CC1302] group-hover:translate-y-0 group-hover:opacity-100"
           >
-            Visit code
+            Visit Code
           </a>
+
           <a
             href={project.liveUrl}
             target="_blank"
@@ -108,7 +124,7 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
             className="flex translate-y-2 items-center gap-2 bg-[#CC1302] px-4 py-2 text-xs font-medium uppercase tracking-wider text-[#F2F0EC] opacity-0 transition-all duration-300 delay-150 hover:bg-[#a80f02] group-hover:translate-y-0 group-hover:opacity-100"
           >
             <ArrowUpRight size={14} />
-            Live site
+            Live Site
           </a>
         </div>
       </div>
