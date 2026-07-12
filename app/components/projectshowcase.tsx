@@ -53,7 +53,7 @@ const projects: Project[] = [
     liveUrl: "https://ridgeroofingdemo.netlify.app/",
   },
   {
-    name: "Fine Dine (In Development)",
+    name: "Fine Dine",
     category: "Restaurant Web Page",
     description:
       "An upscale restaurant experience with immersive visuals, refined typography, online reservations, and a polished interface designed to reflect luxury dining.",
