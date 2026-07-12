@@ -104,10 +104,10 @@ export default function AboutSection() {
                         About Us
                     </span>
 
-                    <h2 className="mt-3 text-4xl flex gap-2 font-bold text-[#F2F0EC]">
-                        The people behind the 
-                        <span className="text-[#CC1302] ">
-                        Work
+                    <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight text-[#F2F0EC]">
+                        The people behind the{" "}
+                        <span className="text-[#CC1302]">
+                            Work
                         </span>
                     </h2>
 

@@ -47,12 +47,8 @@ export default function WhatIsTranxStudio() {
                         About Tranx Studio
                     </span>
 
-                    <h2 className="mt-4 text-5xl flex gap-3 font-bold leading-tight text-[#F2F0EC]">
-                        What is 
-                        <span className="text-[#CC1302] ">
-                        Tranx
-                        </span>
-                         Studio
+                    <h2 className="mt-4 text-4xl md:text-5xl font-bold leading-tight text-[#F2F0EC]">
+                        What is <span className="text-[#CC1302]">Tranx</span> Studio
                     </h2>
 
                     <div className="mt-6 h-px w-16 bg-[#CC1302]" />

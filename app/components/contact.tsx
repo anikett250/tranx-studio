@@ -89,10 +89,10 @@ export default function ContactSection() {
                         Contact Us
                     </span>
 
-                    <h2 className="mt-3 text-4xl flex gap-2 font-bold text-[#F2F0EC]">
-                        Let&apos;s start a 
-                        <span className="text-[#CC1302] ">
-                        Conversation
+                    <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight text-[#F2F0EC]">
+                        Let&apos;s start a{" "}
+                        <span className="text-[#CC1302]">
+                            Conversation
                         </span>
                     </h2>
 
